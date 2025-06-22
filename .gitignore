@@ -1,0 +1,22 @@
+# Binaries
+*.exe
+*.out
+*.test
+main.exe
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Env files
+.env
+.air.toml
+
+# Temporary files
+tmp/
+
+# Vendor (if used)
+vendor/
