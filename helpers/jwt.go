@@ -1,6 +1,7 @@
 package helpers
 
 import (
+	"log"
 	"time"
 
 	"github.com/anggakrnwn/user-auth-api/config"
@@ -17,7 +18,11 @@ func GenerateToken(username string) string {
 		ExpiresAt: jwt.NewNumericDate(expirationTime),
 	}
 
-	token, _ := jwt.NewWithClaims(jwt.SigningMethodHS256, claims).SignedString(jwtkey)
+	token, err := jwt.NewWithClaims(jwt.SigningMethodHS256, claims).SignedString(jwtkey)
+	if err != nil {
+		log.Println("error generating token:", err)
+		return ""
+	}
 
 	return token
 }
