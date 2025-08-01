@@ -35,7 +35,7 @@ A simple RESTful API for user management built with Go, Gin, GORM, and MySQL.
 
 ## ⚙️ Getting Started
 
-### 1. Clone the repo
+### Clone the repo
 ```bash
 git clone https://github.com/anggakrnwn/user-management-api.git
 cd user-management-api
