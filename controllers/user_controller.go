@@ -35,11 +35,17 @@ func CreteUser(c *gin.Context) {
 		return
 	}
 
+	hashed, err := helpers.HashedPassword(req.Password)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to hash password"})
+		return
+	}
+
 	user := models.User{
 		Name:     req.Name,
 		Username: req.Username,
 		Email:    req.Email,
-		Password: helpers.HashedPassword(req.Password),
+		Password: hashed,
 	}
 
 	if err := database.DB.Create(&user).Error; err != nil {
@@ -118,10 +124,16 @@ func UpdateUser(c *gin.Context) {
 		return
 	}
 
+	hashed, err := helpers.HashedPassword(req.Password)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to hash password"})
+		return
+	}
+
 	user.Name = req.Name
 	user.Username = req.Username
 	user.Email = req.Email
-	user.Password = helpers.HashedPassword(req.Password)
+	user.Password = hashed
 
 	if err := database.DB.Save(&user).Error; err != nil {
 		c.JSON(http.StatusInternalServerError, structs.ErrorResponse{
